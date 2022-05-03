@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Dashboard from "../Dashboard";
+import bootstrap from 'bootstrap' ;
+import "../../css/style.css"
 
 export default class Login extends Component {
   constructor(props) {
@@ -49,28 +51,29 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.handleChange}
-            required
-          />
+      <div class="container">
+        <div class="row justify-content-center align-items-center">
+          <div class="col-8 col-md-6 col-lg-4 center">
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            required
-          />
+            <form onSubmit={this.handleSubmit}> 
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" aria-describedby="emailHelp" name="email" autocomplete="off" placeholder="Enter email" value={this.state.email}
+                    onChange={this.handleChange}
+                    required/>
+              </div>
 
-          <button type="submit">Login</button>
-        </form>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password" value={this.state.password}
+                    onChange={this.handleChange}
+                    required/>
+              </div>
+
+              <button type="submit" class="btn btn-dark">Submit</button>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }
