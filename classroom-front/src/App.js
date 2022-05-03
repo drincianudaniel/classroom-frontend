@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import axios from "axios";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 
@@ -26,10 +26,13 @@ export default class App extends Component {
           response.data.logged_in &&
           this.state.loggedInStatus === "NOT_LOGGED_IN"
         ) {
+          console.log(response.data)
           this.setState({
             loggedInStatus: "LOGGED_IN",
             user: response.data.user
-          });
+          }
+
+          );
         } else if (
           !response.data.logged_in &
           (this.state.loggedInStatus === "LOGGED_IN")
@@ -86,6 +89,7 @@ export default class App extends Component {
               render={props => (
                 <Dashboard
                   {...props}
+                  user={this.state.user}
                   loggedInStatus={this.state.loggedInStatus}
                   handleLogout={this.handleLogout}
                 />

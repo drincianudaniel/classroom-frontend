@@ -6,6 +6,7 @@ import Login from "./authentification/Login.js";
 import "../css/sidebar.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 class Dashboard extends React.Component{
@@ -14,7 +15,7 @@ class Dashboard extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          sidebarOpen: true
+          sidebarOpen: false
         };
         this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
       }
@@ -39,26 +40,49 @@ class Dashboard extends React.Component{
   render(){
   return (
     <div>
-       
-      <div>
-      <Sidebar
+         
+      
+       <Sidebar
         sidebar={ <ul> <li>Larisa</li> <li>Dani</li> <li>Alin</li> </ul>   }
         open={this.state.sidebarOpen}
         onSetOpen={this.onSetSidebarOpen}
-        styles={{ sidebar: { background: "white" } }}>  
+        styles={{ sidebar: { background: "white", width: "200px" } }}>  
 
-          <a onClick={() => this.onSetSidebarOpen(true)}>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          
+          {/* <a  class="navbar-brand" onClick={() => this.onSetSidebarOpen(true)}>
           <FontAwesomeIcon icon={faBars} />
-        </a> 
-      </Sidebar>
-        <h1>Dashboard</h1>
-        <h1>Status: {this.props.loggedInStatus}</h1>
-        <button onClick={() => this.handleLogoutClick()}>Logout</button>
-        <button>Create Class</button>
-      
-      
-      </div>
-      <Class/>
+        </a>  */}
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav test">
+                  <div class="test2">
+                <a  class="nav-item nav-link" onClick={() => this.onSetSidebarOpen(true)}>
+                  <FontAwesomeIcon icon={faBars} />
+                </a> 
+                  <a class="nav-item nav-link active" href="#">Classroom<span class="sr-only">(current)</span></a>
+                  </div>
+                  {/* <a class="nav-item nav-link" href="#">Features</a> */}
+                  <div class="test2">
+                  <a class="nav-item nav-link" href="#"><FontAwesomeIcon icon={faPlus} /></a>
+                  <a class="nav-item nav-link" href="#">{this.props.user.name}`s Profile</a>
+                  </div>
+                </div>
+              </div>
+           </nav>
+        <div class="informatii">
+              <div >
+                  <h1>HELLO, {this.props.user.name}!</h1>
+                    <button  onClick={() => this.handleLogoutClick()}>Logout</button>
+                    
+                    <button>Create class</button>
+              </div>       
+          </div>
+          <div> <Class/> </div>
+         
+        </Sidebar>    
     </div>
    );
   }
