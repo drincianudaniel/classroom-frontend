@@ -27,3 +27,6 @@ ul{
     display: flex;
     flex-direction: row;
 }
+.nav-link{
+    cursor: pointer;
+}

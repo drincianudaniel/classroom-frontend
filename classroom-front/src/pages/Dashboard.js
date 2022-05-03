@@ -68,6 +68,7 @@ class Dashboard extends React.Component{
                   <div class="test2">
                   <a class="nav-item nav-link" href="#"><FontAwesomeIcon icon={faPlus} /></a>
                   <a class="nav-item nav-link" href="#">{this.props.user.name}`s Profile</a>
+                  <a class="nav-item nav-link" onClick={() => this.handleLogoutClick()}>Logout</a>
                   </div>
                 </div>
               </div>
@@ -75,11 +76,8 @@ class Dashboard extends React.Component{
         <div class="informatii">
               <div >
                   <h1>HELLO, {this.props.user.name}!</h1>
-                    <button  onClick={() => this.handleLogoutClick()}>Logout</button>
-                    
-                    <button>Create class</button>
               </div>       
-          </div>
+        </div>
           <div> <Class/> </div>
          
         </Sidebar>    

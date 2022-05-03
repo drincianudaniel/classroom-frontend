@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "../css/classes.css"
 
 export default class Class extends Component {
 
@@ -36,11 +37,12 @@ export default class Class extends Component {
             .catch((error) => {
               console.log(error)
         })
-    }
+    }    
 
     render(){
         return(
         <div>
+            {this.state.classrooms.length === 0 && <div class="noclass"> <img src={require('./noclasses.png')}></img> No class could be found... try to create one <button>Create class</button> </div>}
             {this.state.classrooms}
         </div>
         )
