@@ -27,6 +27,46 @@ ul{
     display: flex;
     flex-direction: row;
 }
+nav{
+    border-bottom: 1px solid lightgray;
+}
 .nav-link{
     cursor: pointer;
+}
+.navbar{
+   padding: 15px;
+}
+.navbar a:hover{
+     color: black;
+}
+.navbar .round{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    border-radius: 50%;
+}
+.navbar .round:hover{
+    background-color: rgb(236, 236, 236);
+    border-radius: 50%;
+}
+.navbar .round:active{
+    background-color: rgb(211, 211, 211);
+    border-radius: 50%;
+}
+@media (max-width: 995px){
+    body{
+        font-size: x-large;
+    }
+    
+    .test2{
+        display: flex;
+        gap: 5px;
+    }
+}
+@media (max-width: 445px){
+    body{
+        font-size:medium;
+    }
+
 }
