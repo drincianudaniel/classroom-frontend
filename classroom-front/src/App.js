@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
+import ClassPage from "./pages/ClassPage";
 
 export default class App extends Component {
   constructor() {
@@ -103,6 +104,16 @@ export default class App extends Component {
                       {...props}
                       user={this.state.user}
                       loggedInStatus={this.state.loggedInStatus}
+                      />
+                    )}
+            />
+             <Route exact path={"/classpage"}
+                   render={props => (
+                     <ClassPage
+                      {...props}
+                      user={this.state.user}
+                      loggedInStatus={this.state.loggedInStatus}
+                      handleLogout={this.handleLogout}
                       />
                     )}
             />
