@@ -1,21 +1,18 @@
 import React from "react";
 import axios from "axios";
-import Class from "./Class.js";
 import Sidebar from "react-sidebar";
-import Login from "./authentification/Login.js";
 import "../css/sidebar.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
+class ClassPage extends React.Component{
 
-class Dashboard extends React.Component{
-   
-    
     constructor(props) {
         super(props);
         this.state = {
-          sidebarOpen: false
+          sidebarOpen: false,
+          assignments: []
         };
         this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
       }
@@ -23,6 +20,33 @@ class Dashboard extends React.Component{
       onSetSidebarOpen(open) {
         this.setState({ sidebarOpen: open });
       }
+
+      componentDidMount(){
+        this.getUsersData()
+    } 
+    
+
+    getUsersData() {
+        axios
+            .get("http://localhost:3000/usersassignments/1", { withCredentials: true })
+            .then(res => {
+                const data = res.data
+                console.log(res.data)
+                const assignments = data.map(u =>
+                  <div class="assignments">
+                  <p>{u.id}</p>
+                  <p>{u.name}</p>
+                  <p>{u.details}</p>
+                  </div>
+                  )
+                    this.setState({
+                        assignments
+                    })
+            })
+            .catch((error) => {
+              console.log(error)
+        })
+    }    
 
   handleLogoutClick(){
     axios
@@ -38,8 +62,8 @@ class Dashboard extends React.Component{
   }
 
   render(){
-  return (
-    <div>
+    return(
+        <div>
          
        <Sidebar
         sidebar={ <ul> <li>Larisa</li> <li>Dani</li> <li>Alin</li> </ul>   }
@@ -63,7 +87,9 @@ class Dashboard extends React.Component{
                 </a> 
                   <a class="nav-item nav-link active" href="#">Classroom<span class="sr-only">(current)</span></a>
                   </div>
-                  {/* <a class="nav-item nav-link" href="#">Features</a> */}
+                  <div>
+                  <a class="nav-item nav-link" href="#">Features</a>
+                  </div>
                   <div class="test2">
                   <a class="nav-item nav-link round" href="#"><FontAwesomeIcon icon={faPlus} /></a>
                   <a class="nav-item nav-link" href="#">{this.props.user.name}`s Profile</a>
@@ -72,16 +98,12 @@ class Dashboard extends React.Component{
                 </div>
               {/* </div> */}
            </nav>
-        <div class="informatii">
-              <div >
-                  <h1>HELLO, {this.props.user.name}!</h1>
-              </div>       
+        <div>
+            {this.state.assignments}
         </div>
-           <Class/> 
         </Sidebar>    
     </div>
-   );
-  }
-};
-
-export default Dashboard;
+    );
+    }
+}
+export default ClassPage;
