@@ -78,7 +78,7 @@ class Dashboard extends React.Component{
                   <h1>HELLO, {this.props.user.name}!</h1>
               </div>       
         </div>
-          <div> <Class/> </div>
+           <Class/> 
         </Sidebar>    
     </div>
    );

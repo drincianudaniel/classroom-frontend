@@ -56,7 +56,7 @@ nav{
 }
 @media (max-width: 995px){
     body{
-        font-size: x-large;
+        font-size: 150%;
     }
     
     .test2{
@@ -64,9 +64,11 @@ nav{
         gap: 5px;
     }
 }
-@media (max-width: 445px){
+@media (max-width: 560px){
+   
     body{
-        font-size:medium;
+        font-size: 85%;
     }
+
 
 }
