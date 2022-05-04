@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 
 export default class App extends Component {
   constructor() {
@@ -95,6 +96,15 @@ export default class App extends Component {
                   handleLogout={this.handleLogout}
                 />
               )}
+            />
+            <Route exact path={"/profile"}
+                   render={props => (
+                     <Profile
+                      {...props}
+                      user={this.state.user}
+                      loggedInStatus={this.state.loggedInStatus}
+                      />
+                    )}
             />
           </Switch>
         </BrowserRouter>
