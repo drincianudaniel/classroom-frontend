@@ -55,7 +55,7 @@ export default class Login extends Component {
         <div class="row justify-content-center align-items-center">
           <div class="col-8 col-md-6 col-lg-4 center">
 
-            <form onSubmit={this.handleSubmit}> 
+            <form class="row justify-content-center align-items-center" onSubmit={this.handleSubmit}> 
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                 <input type="email" class="form-control" aria-describedby="emailHelp" name="email" autocomplete="off" placeholder="Enter email" value={this.state.email}
@@ -70,7 +70,7 @@ export default class Login extends Component {
                     required/>
               </div>
 
-              <button type="submit" class="btn btn-dark">Submit</button>
+              <button type="submit" class="btn btn-dark">Login</button>
             </form>
           </div>
         </div>
