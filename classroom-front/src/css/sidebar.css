@@ -5,13 +5,13 @@ ul{
     position: absolute;
     z-index: 4;
 } */
-/* .informatii{
+.informatii{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     text-align: center;
-} */
+}
 /* #gatsby-focus-wrapper > div:nth-child(1){
   height: 0;
   width: 0;

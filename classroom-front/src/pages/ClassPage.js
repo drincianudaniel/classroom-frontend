@@ -5,6 +5,7 @@ import "../css/sidebar.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { withRouter } from "react-router-dom";
 
 class ClassPage extends React.Component{
 
@@ -28,7 +29,7 @@ class ClassPage extends React.Component{
 
     getUsersData() {
         axios
-            .get("http://localhost:3000/usersassignments/1", { withCredentials: true })
+            .get(`http://localhost:3000/usersassignments/${this.props.match.params.id}`, { withCredentials: true })
             .then(res => {
                 const data = res.data
                 console.log(res.data)
@@ -62,6 +63,7 @@ class ClassPage extends React.Component{
   }
 
   render(){
+    
     return(
         <div>
          
@@ -106,4 +108,4 @@ class ClassPage extends React.Component{
     );
     }
 }
-export default ClassPage;
+export default withRouter(ClassPage);

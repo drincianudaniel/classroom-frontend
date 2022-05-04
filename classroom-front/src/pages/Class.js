@@ -3,6 +3,9 @@ import axios from "axios";
 import "../css/classes.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsersBetweenLines } from '@fortawesome/free-solid-svg-icons'
+import { Link, useParams } from "react-router-dom";
+function withParams(Component) {return props => <Component{...props} params={useParams()}/>}
+
 
 export default class Class extends Component {
 
@@ -11,7 +14,9 @@ export default class Class extends Component {
         super(props)
         this.state = {
           classrooms: []
+         
         }
+       
     }
     
       componentDidMount(){
@@ -26,12 +31,8 @@ export default class Class extends Component {
                 const data = res.data
                 console.log(data)
                 const classrooms = data.map(u =>
-                  // <div class="classrooms">
-                  // <p>{u.id}</p>
-                  // <p>{u.name}</p>
-                  // <p>{u.details}</p>
-                  // </div>
-                  
+                 
+                  <Link to={`/classpage/${u.id}`}>
                       <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">{u.name}</h5>
@@ -42,23 +43,29 @@ export default class Class extends Component {
                                 <div class="assigclass"> <a><FontAwesomeIcon icon={faUsersBetweenLines} /></a> </div>
                             </div>
                       </div>
-                 
+                      
+                    </Link>
                   )
                     this.setState({
                       classrooms
+                      
                     })
+                   
             })
             .catch((error) => {
               console.log(error)
         })
+        
     }    
 
     render(){
         return(
-        <div class= "classes">
-            {this.state.classrooms.length === 0 && <div class="noclass"> <img src={require('./noclasses.png')}></img> No class could be found... try to create one <button>Create class</button> </div>}
-            {this.state.classrooms}
-        </div>
+            <div> 
+                {this.state.classrooms.length === 0 && <div class="noclass"> <img src={require('./noclasses.png')}></img> No class could be found... try to create one <button>Create class</button> </div>}
+                <div class= "classes">
+                    {this.state.classrooms}
+                </div>
+            </div>
         )
     }
 }

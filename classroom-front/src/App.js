@@ -107,7 +107,7 @@ export default class App extends Component {
                       />
                     )}
             />
-             <Route exact path={"/classpage"}
+             <Route exact path={"/classpage/:id"}
                    render={props => (
                      <ClassPage
                       {...props}
