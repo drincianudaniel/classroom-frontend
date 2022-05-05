@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from "react-router-dom";
+import Assignments from "./Assignments";
 
 class ClassPage extends React.Component{
 
@@ -13,7 +14,6 @@ class ClassPage extends React.Component{
         super(props);
         this.state = {
           sidebarOpen: false,
-          assignments: []
         };
         this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
       }
@@ -21,33 +21,6 @@ class ClassPage extends React.Component{
       onSetSidebarOpen(open) {
         this.setState({ sidebarOpen: open });
       }
-
-      componentDidMount(){
-        this.getUsersData()
-    } 
-    
-
-    getUsersData() {
-        axios
-            .get(`http://localhost:3000/usersassignments/${this.props.match.params.id}`, { withCredentials: true })
-            .then(res => {
-                const data = res.data
-                console.log(res.data)
-                const assignments = data.map(u =>
-                  <div class="assignments">
-                  <p>{u.id}</p>
-                  <p>{u.name}</p>
-                  <p>{u.details}</p>
-                  </div>
-                  )
-                    this.setState({
-                        assignments
-                    })
-            })
-            .catch((error) => {
-              console.log(error)
-        })
-    }    
 
   handleLogoutClick(){
     axios
@@ -89,9 +62,9 @@ class ClassPage extends React.Component{
                 </a> 
                   <a class="nav-item nav-link active" href="#">Classroom<span class="sr-only">(current)</span></a>
                   </div>
-                  <div>
+                  {/* <div>
                   <a class="nav-item nav-link" href="#">Features</a>
-                  </div>
+                  </div> */}
                   <div class="test2">
                   <a class="nav-item nav-link round" href="#"><FontAwesomeIcon icon={faPlus} /></a>
                   <a class="nav-item nav-link" href="#">{this.props.user.name}`s Profile</a>
@@ -100,8 +73,13 @@ class ClassPage extends React.Component{
                 </div>
               {/* </div> */}
            </nav>
+           <div class="container">
+            <div class="bannerPhoto ">
+              <div class="bannerText"> <p> Clasa x</p> </div>
+            </div>
+           </div>
         <div>
-            {this.state.assignments}
+            <Assignments/>
         </div>
         </Sidebar>    
     </div>

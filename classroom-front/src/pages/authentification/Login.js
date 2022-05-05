@@ -44,7 +44,10 @@ export default class Login extends Component {
         }
       })
       .catch(error => {
-        console.log("login error", error);
+        console.log(error);
+        this.setState({
+          error: "No such user"
+        })
       });
     event.preventDefault();
   }
@@ -71,6 +74,7 @@ export default class Login extends Component {
               </div>
 
               <button type="submit" class="btn btn-dark">Login</button>
+              {this.state.error && <div class="row justify-content-center align-items-center err">{this.state.error}</div>} 
             </form>
           </div>
         </div>

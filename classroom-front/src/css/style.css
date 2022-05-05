@@ -12,3 +12,10 @@
 .btn {
     width: 30%;
 }
+
+.err{
+    color: red;
+    font-size: 25px;
+    padding-top: 20px;
+    text-shadow: 1px 1px black;
+}
