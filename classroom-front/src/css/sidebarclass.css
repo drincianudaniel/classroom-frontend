@@ -1,0 +1,63 @@
+.cardmini{
+    border: none;
+    border-radius: 10px;
+    margin: 0;
+    width: 100%;
+    box-shadow: none;
+
+    padding-left: 10px;
+    font-size: medium;
+}
+.pp p{
+    display: inline;
+    margin-left: 10px;
+    padding: .5rem .5rem;
+}
+.card-subtitle{
+    margin: 0;
+}
+.card-body{
+    
+}
+.bod{
+    padding-left: 5px;
+    display: inline;
+   
+}
+.card-title{
+    margin: 0;
+}
+h5{
+    margin: 0;
+}
+.cardmini:hover{
+    border-radius: 20px;
+    background-color: rgb(236, 236, 236);
+    text-decoration: none;
+}
+.title{
+    margin-bottom: 10px;
+}
+.classes h5{
+    margin: 0;
+}
+#pro{
+    margin: 17px;
+}
+#class{
+    color: rgb(156, 156, 156);
+    margin: 15px;
+}
+.hov a:hover{
+  
+    text-decoration: underline;
+}
+.hov a{
+    text-decoration: none;
+}
+.underline{
+    border-bottom: 1px solid rgb(184, 184, 184);
+}
+.bod{
+    padding: .8rem .8rem;
+}

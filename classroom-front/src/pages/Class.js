@@ -30,32 +30,32 @@ export default class Class extends Component {
             .then(res => {
                 const data = res.data
                 console.log(data)
-                const classrooms = data.map(u =>
-                 
-                  <Link to={`/classpage/${u.id}`}>
+                const classrooms = data.map(u => 
+                  
                       <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{u.name}</h5>
-                                <p class="card-text">{u.details}</p>
-                                <h6 class="card-subtitle mb-2 text-muted">{u.name}</h6>
+                        <Link id="cardhov" to={`/classpage/${u.id}`}>
+                            <div class="card-body cbody">
+                            <Link class="cardtitledesc" to={`/classpage/${u.id}`}>
+                                <h5 class="card-title"> {u.name}</h5>
+                                <p class="card-text"> {u.details}</p>
+                              </Link>
+                                <h6 class="card-subtitle text-muted">{u.name}</h6>
                             </div>
                             <div id="card2">
-                                <div class="assigclass"> <a><FontAwesomeIcon icon={faUsersBetweenLines} /></a> </div>
+                                <div class="assigclass"> <a class="iconuser"><FontAwesomeIcon  icon={faUsersBetweenLines} /></a> </div>
                             </div>
+                            </Link>
                       </div>
-                      
-                    </Link>
+                    
                   )
                     this.setState({
                       classrooms
                       
                     })
-                   
             })
             .catch((error) => {
               console.log(error)
         })
-        
     }    
 
     render(){
