@@ -54,6 +54,9 @@ nav{
     background-color: rgb(211, 211, 211);
     border-radius: 50%;
 }
+.edit{
+    cursor: text;
+}
 @media (max-width: 995px){
     body{
         font-size: 150%;

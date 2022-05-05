@@ -1,4 +1,8 @@
 /* no class */
+body{
+    margin: 0;
+    padding: 0;
+}
 .noclass{
     display: flex;
     flex-direction: column;
@@ -12,16 +16,34 @@ img{
 }
 .card{
     border: 2px solid gray;
-    
     border-radius: 10px;
     margin: 20px;
     width: 22rem;
+    box-shadow: 0 4px 8px 0 rgba(46, 46, 46, 0.2);
+}
+.classes a{
+    
+    text-decoration: none;
+}
+.card-subtitle{
+    margin: 0;
+}
+.classes h5{
+    margin: 0;
+}
+#texthov:hover{
+    text-decoration: underline;
+}
+.classes #cardhov:hover{
+    box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2);
 }
 #card2{
-    border-top: 1px solid lightgray;
+    border-top: 1px solid rgb(211, 211, 211);
     height: 200px;
-
-    
+}
+.cardtitledesc{
+    color: black;
+    text-decoration: none;
 }
 .classes{
     margin: 0 auto;
@@ -32,12 +54,31 @@ img{
 }
 .assigclass{
     position: absolute;
-    margin: 10px;
     bottom: 0;
-    right: 0;
-    
-    
+    left: 0; 
+    width: 100%;
+    border-top: 1px solid lightgray;
 }
+.iconuser{
+    float: right;
+    margin: 15px;
+    width: 6%;
+    color: black;
+}
+/* .mb-2{
+    margin: 0;
+} */
+.iconuser:hover{
+    color: gray;
+}
+.cardtitledesc:hover{
+    color: black;
+    text-decoration: underline;
+}
+.cbody{
+    padding: 1rem 1rem;
+}
+
 @media (max-width:995px){
     .classes{
         
