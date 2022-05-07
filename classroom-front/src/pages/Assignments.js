@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import "../css/classes.css"
+import "../css/assignments.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from "react-router-dom";
 import { faClipboardUser } from '@fortawesome/free-solid-svg-icons'
@@ -32,16 +32,20 @@ class Assignments extends React.Component {
                 //   </div>
                 // <Link to={`/classpage/${u.id}`}>
                 <Link>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{u.name}</h5>
-                            <p class="card-text">{u.details}</p>
-                            <h6 class="card-subtitle mb-2 text-muted">{u.name}</h6>
-                        </div>
-                        <div id="card2">
-                            <div class="assigclass"> <FontAwesomeIcon icon={faClipboardUser} /> </div>
+                <div class="container">
+                    <div class="card3">
+                        <div class="card-body row">
+                            <div class="assigclass2 col-lg-1"> 
+                                <FontAwesomeIcon class="icon" icon={faClipboardUser} /> 
+                            </div>
+                            
+                            <div class="texts col-lg-9">
+                                <h4>{u.name}</h4>
+                                <h5>{u.details}</h5>
+                            </div>
                         </div>
                     </div> 
+                </div>
                 </Link>
                 )
                     this.setState({
