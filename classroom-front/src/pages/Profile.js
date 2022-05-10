@@ -41,7 +41,11 @@ class Profile extends React.Component{
             },
             { withCredentials: true }
             )
-            .then(res => res.data)
+            .then(res => {
+
+                this.props.history.push("/dashboard");
+                window.location.reload(true);
+            })
             .catch(error =>  {
             console.log(error);
         });
