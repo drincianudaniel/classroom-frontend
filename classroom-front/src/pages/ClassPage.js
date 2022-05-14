@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
+import ClassSidebar from "./ClassSidebar.js";
 import Assignments from "./Assignments";
 
 class ClassPage extends React.Component{
@@ -39,41 +41,25 @@ class ClassPage extends React.Component{
     
     return(
         <div>
-         
-       <Sidebar
-        sidebar={ <ul> <li>Larisa</li> <li>Dani</li> <li>Alin</li> </ul>   }
-        open={this.state.sidebarOpen}
-        onSetOpen={this.onSetSidebarOpen}
-        styles={{ sidebar: { background: "white", width: "200px" } }}>  
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-white">
-          
-          {/* <a  class="navbar-brand" onClick={() => this.onSetSidebarOpen(true)}>
-          <FontAwesomeIcon icon={faBars} />
-        </a>  */}
-              {/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNavAltMarkup"> */}
-                <div class="navbar-nav test">
-                  <div class="test2">
-                <a  class="nav-item nav-link round" onClick={() => this.onSetSidebarOpen(true)}>
-                  <FontAwesomeIcon icon={faBars} />
-                </a> 
-                  <a class="nav-item nav-link active" href="#">Classroom<span class="sr-only">(current)</span></a>
+          <Sidebar
+          sidebar={ <ClassSidebar/ >  }
+          open={this.state.sidebarOpen}
+          onSetOpen={this.onSetSidebarOpen}
+          styles={{ sidebar: { background: "white", width: "300px" } }}>  
+          <nav class="navbar navbar-expand-lg navbar-light bg-white">
+                  <div class="navbar-nav test">
+                    <div class="test2">
+                          <a class="nav-item nav-link round" onClick={() => this.onSetSidebarOpen(true)}><FontAwesomeIcon icon={faBars} /> </a> 
+                          <a class="nav-item nav-link active edit" href="/dashboard">Classroom<span class="sr-only">(current)</span></a>
+                    </div>
+                    <div class="test2">
+                        <a class="nav-item nav-link round" href="#"><FontAwesomeIcon icon={faPlus} /></a>
+                        <Link to={"/profile"} class="nav-item nav-link cardtitledesc">{this.props.user.name}`s Profile</Link>
+                        <a class="nav-item nav-link cardtitledesc" onClick={() => this.handleLogoutClick()}>Logout</a>
+                    </div>
                   </div>
-                  {/* <div>
-                  <a class="nav-item nav-link" href="#">Features</a>
-                  </div> */}
-                  <div class="test2">
-                  <a class="nav-item nav-link round" href="#"><FontAwesomeIcon icon={faPlus} /></a>
-                  <a class="nav-item nav-link" href="#">{this.props.user.name}`s Profile</a>
-                  <a class="nav-item nav-link" onClick={() => this.handleLogoutClick()}>Logout</a>
-                  </div>
-                </div>
-              {/* </div> */}
-           </nav>
-           <div class="container">
+          </nav>
+          <div class="container">
             <div class="bannerPhoto ">
               <div class="bannerText"> <p> Clasa x</p> </div>
             </div>
@@ -81,8 +67,9 @@ class ClassPage extends React.Component{
         <div>
             <Assignments/>
         </div>
-        </Sidebar>    
-    </div>
+
+          </Sidebar>
+        </div>
     );
     }
 }
