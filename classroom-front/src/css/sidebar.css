@@ -93,3 +93,26 @@ nav{
     bottom: 0;
     left: 0;
 }
+
+.textarea {
+    display: block;
+    width: 300px;
+    overflow: hidden;
+    resize: both;
+    min-height: 40px;
+    line-height: 20px;
+    border: 1px solid rgb(0, 0, 0);
+    font-family: inherit;
+    font-size: inherit;
+    padding: 1px 6px;
+  }
+
+  .textarea[contenteditable]:empty::before {
+    content: "Assignments details";
+    color: gray;
+  }
+
+  .modalInput{
+      width: 300px;
+      height: 40px;
+  }
