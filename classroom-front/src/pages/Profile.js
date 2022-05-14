@@ -28,9 +28,7 @@ class Profile extends React.Component{
         this.setState({ sidebarOpen: open });
     }
 
-    handleEdit(event)
-    {
-        console.log("a plecat")
+    handleEdit(event){
         axios
             .patch(
              "http://localhost:3000/updateuser",
@@ -42,11 +40,10 @@ class Profile extends React.Component{
             { withCredentials: true }
             )
             .then(res => {
-
                 this.props.history.push("/dashboard");
                 window.location.reload(true);
             })
-            .catch(error =>  {
+            .catch(error => {
             console.log(error);
         });
         event.preventDefault();
@@ -76,7 +73,7 @@ class Profile extends React.Component{
     render(){
         return(
         <div>
-            <Sidebar
+            {this.props.loggedInStatus == "LOGGED_IN" && <Sidebar
               sidebar={ <ul> <li>Larisa</li> <li>Dani</li> <li>Alin</li> </ul>   }
               open={this.state.sidebarOpen}
               onSetOpen={this.onSetSidebarOpen}
@@ -117,7 +114,7 @@ class Profile extends React.Component{
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputEmail4" class="form-label">Email</label>
-                                                <input type="email" class="form-control" id="inputEmail4" value={this.state.email} onChange={e => this.setState({email: e.target.value})}/>
+                                                <input disabled type="email" class="form-control" id="inputEmail4" value={this.state.email} onChange={e => this.setState({email: e.target.value})}/>
                                             </div>
                                             <button type="submit" class="btn btn-dark">Edit</button>
                                         </div>
@@ -127,7 +124,9 @@ class Profile extends React.Component{
                         </form>
                     </div>
                 </div>
-            </Sidebar>    
+            </Sidebar>}
+
+            {this.props.loggedInStatus == "NOT_LOGGED_IN" && <div><Link to={"/"}><p>Please LogIn first</p></Link></div>}
         </div>
         );
     }
