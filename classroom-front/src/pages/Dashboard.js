@@ -18,14 +18,40 @@ class Dashboard extends React.Component{
         super(props);
         this.state = {
           sidebarOpen: false,
-          show : false
+          show : false,
+          class_name: "",
+          class_details: ""
         };
         this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
-       
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
       }
     
       handleOpenModal() {
         this.setState({ show: !this.state.show });
+      }
+      handleChange(event) {
+        this.setState({
+          [event.target.name]: event.target.value
+        });
+      }
+      handleSubmit(){
+        axios
+        .post("http://localhost:3000/createclass",
+        {
+          classrooms: {
+              name: this.state.class_name,
+              details: this.state.class_details
+          }
+        },
+        { withCredentials: true })
+        .then(response=> {
+          this.handleOpenModal()
+          window.location.reload(true)
+        })
+        .catch(error => {
+          console.log("Couldn`t create class")
+        })
       }
       onSetSidebarOpen(open) {
         this.setState({ sidebarOpen: open });
@@ -68,19 +94,20 @@ class Dashboard extends React.Component{
                           <Modal.Body>
                             <form onSubmit={this.handleSubmit}>
                               <label>Class name:</label><br></br>
-                                <input type="text"/><br></br>
+                                <input type="text" onChange={e => this.setState({class_name: e.target.value})} value={this.state.class_name}/><br></br>
                                 <label>Class details/description:</label><br></br>
-                                <input type="text"/>
-                            </form>
+                                <input type="text" onChange={e => this.setState({class_details: e.target.value})} value={this.state.class_details}/>
+                             </form>
                           </Modal.Body>
                           <Modal.Footer>
                             <a class="af" onClick={() =>this.handleOpenModal()}>
                               Close
                             </a>
-                            <a class="af" onClick={() =>this.handleOpenModal()} >
+                            <a class="af" onClick={() =>this.handleSubmit()} >
                               Save Changes
                             </a>
                           </Modal.Footer>
+                          
                        </Modal>
                       <Link to={"/profile"} class="nav-item nav-link cardtitledesc">{this.props.user.name}`s Profile</Link>
                       <a class="nav-item nav-link cardtitledesc" onClick={() => this.handleLogoutClick()}>Logout</a>

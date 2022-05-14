@@ -41,7 +41,7 @@ class Assignments extends React.Component {
                             
                             <div class="texts col-lg-9">
                                 <h4>{u.name}</h4>
-                                <h5>{u.details}</h5>
+                                {/* <h5>{u.details}</h5> */}
                             </div>
                         </div>
                     </div> 
