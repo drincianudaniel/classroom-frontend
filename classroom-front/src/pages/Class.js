@@ -4,6 +4,7 @@ import "../css/classes.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsersBetweenLines } from '@fortawesome/free-solid-svg-icons'
 import { Link, useParams } from "react-router-dom";
+import Modal from 'react-bootstrap/Modal';
 function withParams(Component) {return props => <Component{...props} params={useParams()}/>}
 
 
@@ -13,8 +14,8 @@ export default class Class extends Component {
     constructor(props){
         super(props)
         this.state = {
-          classrooms: []
-         
+          classrooms: [],
+          show : false
         }
        
     }
@@ -23,6 +24,9 @@ export default class Class extends Component {
         this.getUsersData()
     } 
     
+    handleOpenModal() {
+        this.setState({ show: !this.state.show });
+      }
 
     getUsersData() {
         axios
@@ -61,7 +65,25 @@ export default class Class extends Component {
     render(){
         return(
             <div> 
-                {this.state.classrooms.length === 0 && <div class="noclass"> <img src={require('./noclasses.png')}></img> No class could be found... try to create one <button>Create class</button> </div>}
+                {this.state.classrooms.length === 0 && <div class="noclass"> <img src={require('./noclasses.png')}></img> No class could be found... try to create one <button onClick={() =>this.handleOpenModal()}>Create class</button> <Modal size="md" centered show={this.state.show} onHide={() =>this.handleOpenModal()}>
+                        <Modal.Header closeButton><Modal.Title>Create a class</Modal.Title></Modal.Header>
+                          <Modal.Body>
+                            <form onSubmit={this.handleSubmit}>
+                              <label>Class name:</label><br></br>
+                                <input type="text"/><br></br>
+                                <label>Class details/description:</label><br></br>
+                                <input type="text"/>
+                          </form>
+                          </Modal.Body>
+                          <Modal.Footer>
+                            <a class="af" onClick={() =>this.handleOpenModal()}>
+                              Close
+                            </a>
+                            <a class="af" onClick={() =>this.handleOpenModal()} >
+                              Save Changes
+                            </a>
+                          </Modal.Footer>
+                       </Modal></div>}
                 <div class= "classes">
                     {this.state.classrooms}
                 </div>

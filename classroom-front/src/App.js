@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import ClassPage from "./pages/ClassPage";
+
 
 export default class App extends Component {
   constructor() {
