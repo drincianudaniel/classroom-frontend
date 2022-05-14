@@ -4,14 +4,12 @@ import './index.css';
 import App from './App';
 import Home from './pages/Home';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter,Router } from "react-router-dom";
 import Login from './pages/authentification/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+    <App />,
   document.getElementById('root')
 );
 
