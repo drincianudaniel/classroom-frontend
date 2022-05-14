@@ -78,6 +78,15 @@ img{
 .cbody{
     padding: 1rem 1rem;
 }
+.af{
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+.af:hover{
+    color: black;
+    text-decoration: underline;
+}
 
 @media (max-width:995px){
     .classes{
