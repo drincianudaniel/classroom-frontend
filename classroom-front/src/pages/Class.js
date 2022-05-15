@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsersBetweenLines } from '@fortawesome/free-solid-svg-icons'
 import { Link, useParams } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
+
 function withParams(Component) {return props => <Component{...props} params={useParams()}/>}
 
 
@@ -15,29 +16,40 @@ export default class Class extends Component {
         super(props)
         this.state = {
           classrooms: [],
-          show : false
+          show : false,
+          activeModal: "",
+          modalData: ""
         }
-       
+       this.handleOpenModal= this.handleOpenModal.bind(this);
     }
     
       componentDidMount(){
-        this.getUsersData()
+        this.getClassData()
     } 
     
-    handleOpenModal() {
+    handleOpenModal(val) {
+        this.setState({activeModal: val})
         this.setState({ show: !this.state.show });
       }
-
-    getUsersData() {
+    deleteClass(id){
+      axios
+      .delete(`http://localhost:3000/delete/${id}`, { withCredentials: true })
+      .then(res=>{
+          this.getClassData();
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }
+    getClassData() {
         axios
             .get("http://localhost:3000/usersclassrooms", { withCredentials: true })
             .then(res => {
                 const data = res.data
                 console.log(data)
                 const classrooms = data.map(u => 
-                  
-                      <div class="card">
-                        <Link id="cardhov" to={`/classpage/${u.id}`}>
+                      <div class="card" id="cardhov">
+                        <Link  to={`/classpage/${u.id}`}>
                             <div class="card-body cbody">
                             <Link class="cardtitledesc" to={`/classpage/${u.id}`}>
                                 <h5 class="card-title"> {u.name}</h5>
@@ -46,9 +58,13 @@ export default class Class extends Component {
                                 <h6 class="card-subtitle text-muted">{u.name}</h6>
                             </div>
                             <div id="card2">
-                                <div class="assigclass"> <a class="iconuser"><FontAwesomeIcon  icon={faUsersBetweenLines} /></a> </div>
+                               
                             </div>
                             </Link>
+                            <div class="assigclass"> <a class="iconuser"><FontAwesomeIcon  icon={faUsersBetweenLines} /></a> <button onClick={()=> {this.handleOpenModal("edit"); 
+                                                                                                                                                    this.setState({modalData: u});}}>kijkdkwqkwd </button>
+                          <button onClick={()=> this.deleteClass(u.id)}>Delete </button>
+                           </div>
                       </div>
                     
                   )
@@ -60,12 +76,14 @@ export default class Class extends Component {
             .catch((error) => {
               console.log(error)
         })
-    }    
+    }   
+     
 
     render(){
         return(
             <div> 
-                {this.state.classrooms.length === 0 && <div class="noclass"> <img src={require('./noclasses.png')}></img> No class could be found... try to create one <button onClick={() =>this.handleOpenModal()}>Create class</button> <Modal size="md" centered show={this.state.show} onHide={() =>this.handleOpenModal()}>
+                {this.state.classrooms.length === 0 && <div class="noclass"> <img src={require('./noclasses.png')}></img> No class could be found... try to create one <button onClick={() =>this.handleOpenModal()}>Create class</button> 
+                <Modal size="md" centered show={this.state.show} onHide={() =>this.handleOpenModal()}>
                         <Modal.Header closeButton><Modal.Title>Create a class</Modal.Title></Modal.Header>
                           <Modal.Body>
                             <form onSubmit={this.handleSubmit}>
@@ -86,6 +104,27 @@ export default class Class extends Component {
                        </Modal></div>}
                 <div class= "classes">
                     {this.state.classrooms}
+                    <div> 
+                    <Modal size="md" centered show={this.state.show && this.state.activeModal === "edit"}  onHide={() =>this.handleOpenModal()}>
+                      <Modal.Header closeButton><Modal.Title>Edit a class</Modal.Title></Modal.Header>
+                          <Modal.Body>
+                            <form onSubmit={this.handleSubmit}>
+                              <label>Edit class name:</label><br></br>
+                                <input type="text" value={this.state.modalData.name}/><br></br>
+                                <label>Edit class details/description:</label><br></br>
+                                <input type="text" value={this.state.modalData.details}/>
+                          </form>
+                          </Modal.Body>
+                          <Modal.Footer>
+                            <a class="af" onClick={() =>this.handleOpenModal()}>
+                              Close
+                            </a>
+                            <a class="af" onClick={() =>this.handleOpenModal()} >
+                              Save Changes
+                            </a>
+                          </Modal.Footer>
+                       </Modal>
+                     </div>
                 </div>
             </div>
         )
