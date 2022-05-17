@@ -90,7 +90,7 @@ class ClassPage extends React.Component{
                               <label>Assignment name:</label><br/>
                               <input type="text" class="modalInput" placeholder="Assignment name" onChange={e => this.setState({assignment_name: e.target.value})} value={this.state.assignment_name}/><br/>
                               <p>Assignment details:
-                                <span class="textarea input" role="textbox" contenteditable="true" onInput={e => this.setState({assignment_details: e.currentTarget.innerText})} value={this.state.assignment_details} ></span>
+                                <span class="textarea input" role="textbox" contenteditable="true" onInput={e => this.setState({assignment_details: e.currentTarget.innerText})} value={this.state.assignment_details} />
                               </p>
                             </form>
                           </Modal.Body>

@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter,Router } from "react-router-dom";
 import Login from './pages/authentification/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/js/dist/dropdown';
+import 'bootstrap/dist/js/bootstrap.bundle';
 
 ReactDOM.render(
     <App />,
