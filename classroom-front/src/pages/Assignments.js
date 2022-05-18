@@ -85,7 +85,7 @@ class Assignments extends React.Component {
                             <div class="col-1 "> 
                                 <FontAwesomeIcon class="icon" icon={faClipboardUser} /> 
                             </div>
-                            <Link class="col-xl-10 col-lg-10 col-md-10">
+                            <Link class="col-xl-10 col-lg-10 col-md-10" to={`/solutionpage/${u.id}`}>
                                     <h5>X posted a new assignment: {u.name}</h5>
                                     {/* <h5>TIME</h5> */}
                             </Link>
