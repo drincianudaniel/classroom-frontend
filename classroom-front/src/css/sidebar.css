@@ -116,3 +116,8 @@ nav{
       width: 300px;
       height: 40px;
   }
+
+  .textModal{
+    color:gray;
+    margin:4px;
+  }

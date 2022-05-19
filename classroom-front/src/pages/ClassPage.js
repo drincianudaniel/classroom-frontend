@@ -5,6 +5,7 @@ import "../css/sidebar.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPersonCirclePlus} from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ClassSidebar from "./ClassSidebar.js";
@@ -19,18 +20,44 @@ class ClassPage extends React.Component{
           sidebarOpen: false,
           classroom_id: this.props.match.params.id,
           assignment_name:"",
-          assignment_details:""
+          assignment_details:"",
+          activeModal:"",
+          email:"",
+          added:""
         };
         this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
 
-      handleOpenModal() {
+      handleOpenModal(val) {
+        this.setState({activeModal: val})
         this.setState({ show: !this.state.show });
+        this.setState({email:"", added:""})
       }
     
       onSetSidebarOpen(open) {
         this.setState({ sidebarOpen: open });
+      }
+
+      addUserToClass(){
+        axios
+        .post("http://localhost:3000/addUsertoClass",
+        {
+          email: this.state.email,
+          classroom_id: this.state.classroom_id
+        },
+        { withCredentials: true })
+        .then(res=>{
+          const added =<div><h4 class="textModal">Student added</h4></div>
+          this.setState({
+            added
+          })
+          // this.handleOpenModal()
+
+        })
+        .catch(error => {
+          console.log("Couldn`t create assignment")
+        })
       }
 
       handleSubmit(){
@@ -79,11 +106,33 @@ class ClassPage extends React.Component{
                   <div class="navbar-nav test">
                     <div class="test2">
                           <a class="nav-item nav-link round" onClick={() => this.onSetSidebarOpen(true)}><FontAwesomeIcon icon={faBars} /> </a> 
-                          <a class="nav-item nav-link active edit" href="/dashboard">Classroom<span class="sr-only">(current)</span></a>
+                          <Link to={"/dashboard"} class="nav-item nav-link active">Classroom<span class="sr-only">(current)</span></Link>
                     </div>
                     <div class="test2">
-                        <a class="nav-item nav-link round" onClick={() =>this.handleOpenModal()}><FontAwesomeIcon icon={faPlus} /></a>
-                        <Modal size="md" centered show={this.state.show} onHide={() =>this.handleOpenModal()}>
+                        {/* Add user to class*/}
+                        <a class="nav-item nav-link round" onClick={() =>this.handleOpenModal("addUserToClass")}><FontAwesomeIcon icon={faPersonCirclePlus} /></a>
+                        <Modal size="md" centered show={this.state.show && this.state.activeModal === "addUserToClass"} onHide={() =>this.handleOpenModal()}>
+                        <Modal.Header closeButton><Modal.Title>Add an user to the class</Modal.Title></Modal.Header>
+                          <Modal.Body>
+                            <form onSubmit={this.handleSubmit}>
+                              <label>User email:</label><br/>
+                              <input type="text" class="modalInput" placeholder="User email" onChange={e => this.setState({email: e.target.value})} value={this.state.email}/>
+                            </form>
+                            {this.state.added}
+                          </Modal.Body>
+                          <Modal.Footer>
+                            <a class="af" onClick={() =>this.handleOpenModal()}>
+                              Close
+                            </a>
+                            <a class="af" onClick={() =>this.addUserToClass()} >
+                              Add student
+                            </a>
+                          </Modal.Footer>
+                       </Modal>
+
+                        {/* Add assignment to class */}
+                        <a class="nav-item nav-link round" onClick={() =>this.handleOpenModal("addAssign")}><FontAwesomeIcon icon={faPlus} /></a>
+                        <Modal size="md" centered show={this.state.show && this.state.activeModal === "addAssign"} onHide={() =>this.handleOpenModal()}>
                         <Modal.Header closeButton><Modal.Title>Create an assignment</Modal.Title></Modal.Header>
                           <Modal.Body>
                             <form onSubmit={this.handleSubmit}>
