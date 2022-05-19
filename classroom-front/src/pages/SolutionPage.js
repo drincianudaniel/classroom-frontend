@@ -248,7 +248,7 @@ class SolutionPage extends React.Component{
                         <p>{this.state.solutions}</p>
                         <div> 
                     <Modal size="md" centered show={this.state.show}  onHide={() =>this.handleOpenModal()}>
-                      <Modal.Header closeButton><Modal.Title>Edit a class</Modal.Title></Modal.Header>
+                      <Modal.Header closeButton><Modal.Title>Grade assignment</Modal.Title></Modal.Header>
                           <Modal.Body>
                             <form onSubmit={this.handleSubmit}>
                                 <label>Grade the assignment:</label><br></br>
