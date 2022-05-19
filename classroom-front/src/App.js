@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import ClassPage from "./pages/ClassPage";
+import SolutionPage from "./pages/SolutionPage";
 
 
 export default class App extends Component {
@@ -111,6 +112,16 @@ export default class App extends Component {
              <Route exact path={"/classpage/:id"}
                    render={props => (
                      <ClassPage
+                      {...props}
+                      user={this.state.user}
+                      loggedInStatus={this.state.loggedInStatus}
+                      handleLogout={this.handleLogout}
+                      />
+                    )}
+            />
+            <Route exact path={"/solutionpage/:assignment_id"}
+                   render={props => (
+                     <SolutionPage
                       {...props}
                       user={this.state.user}
                       loggedInStatus={this.state.loggedInStatus}

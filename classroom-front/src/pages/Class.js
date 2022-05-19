@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../css/classes.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsersBetweenLines } from '@fortawesome/free-solid-svg-icons'
+import { faUsersBetweenLines, faEdit, faX } from '@fortawesome/free-solid-svg-icons'
 import { Link, useParams } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 
@@ -18,7 +18,9 @@ export default class Class extends Component {
           classrooms: [],
           show : false,
           activeModal: "",
-          modalData: ""
+          modalData: "",
+          name: "",
+          details: ""
         }
        this.handleOpenModal= this.handleOpenModal.bind(this);
     }
@@ -31,6 +33,23 @@ export default class Class extends Component {
         this.setState({activeModal: val})
         this.setState({ show: !this.state.show });
       }
+
+    editClass(id){
+      axios
+        .patch(`http://localhost:3000/updateclassroom/${id}`,
+        {
+          name: this.state.name,
+          details: this.state.details
+        },
+        { withCredentials: true })
+          .then(res =>  {
+              this.handleOpenModal();
+              this.getClassData();
+          })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
     deleteClass(id){
       axios
       .delete(`http://localhost:3000/delete/${id}`, { withCredentials: true })
@@ -49,6 +68,7 @@ export default class Class extends Component {
                 console.log(data)
                 const classrooms = data.map(u => 
                       <div class="card" id="cardhov">
+                        <a class="deletecl" onClick={()=> this.deleteClass(u.id)}><FontAwesomeIcon icon={faX}/></a> 
                         <Link  to={`/classpage/${u.id}`}>
                             <div class="card-body cbody">
                             <Link class="cardtitledesc" to={`/classpage/${u.id}`}>
@@ -57,13 +77,13 @@ export default class Class extends Component {
                               </Link>
                                 <h6 class="card-subtitle text-muted">{u.name}</h6>
                             </div>
-                            <div id="card2">
-                               
-                            </div>
+                            <div id="card2"></div>
                             </Link>
-                            <div class="assigclass"> <a class="iconuser"><FontAwesomeIcon  icon={faUsersBetweenLines} /></a> <button onClick={()=> {this.handleOpenModal("edit"); 
-                                                                                                                                                    this.setState({modalData: u});}}>kijkdkwqkwd </button>
-                          <button onClick={()=> this.deleteClass(u.id)}>Delete </button>
+                               
+                            <div class="assigclass"> <a class="iconuser"><FontAwesomeIcon  icon={faUsersBetweenLines} /></a>
+                            <a class="iconuser" onClick={()=> {this.handleOpenModal("edit"); 
+                                                              this.setState({modalData: u, name: u.name, details: u.details});}}>
+                               <FontAwesomeIcon  icon={faEdit} /> </a>
                            </div>
                       </div>
                     
@@ -110,16 +130,16 @@ export default class Class extends Component {
                           <Modal.Body>
                             <form onSubmit={this.handleSubmit}>
                               <label>Edit class name:</label><br></br>
-                                <input type="text" value={this.state.modalData.name}/><br></br>
+                                <input type="text" onChange={e => this.setState({name: e.target.value})} value={this.state.name}/><br></br>
                                 <label>Edit class details/description:</label><br></br>
-                                <input type="text" value={this.state.modalData.details}/>
+                                <input type="text" onChange={e => this.setState({details: e.target.value})} value={this.state.details}/>
                           </form>
                           </Modal.Body>
                           <Modal.Footer>
-                            <a class="af" onClick={() =>this.handleOpenModal()}>
+                            <a class="af"  onClick={() =>this.handleOpenModal()}>
                               Close
                             </a>
-                            <a class="af" onClick={() =>this.handleOpenModal()} >
+                            <a class="af" onClick={() =>this.editClass(this.state.modalData.id)} >
                               Save Changes
                             </a>
                           </Modal.Footer>
