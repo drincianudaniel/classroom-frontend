@@ -95,7 +95,7 @@ class SolutionPage extends React.Component{
                   <p>{u.solution_content}</p>
                   {u.grade === null && 
                   <div>
-                      
+
                   </div>}
               </div>  
               
@@ -182,7 +182,7 @@ class SolutionPage extends React.Component{
                 </div>}
                 <div>
                     {/* STUDENT when SOLUTION posted */}
-                    {this.state.solution.length !=0 &&
+                    {this.state.solution.length !==0 &&
                     <div>
                         <h3>Your solution:</h3><br/>
                         <p>{this.state.solution}</p>
@@ -214,7 +214,7 @@ class SolutionPage extends React.Component{
                         <h3>Nobody posted a solution yet.</h3>
                     </div>}
                     {/* TEACHER when somebody posted a solution */}
-                    {this.state.solutions.length != 0 &&
+                    {this.state.solutions.length !== 0 &&
                     <div>
                         <p>{this.state.solutions}</p>
                     </div>}
