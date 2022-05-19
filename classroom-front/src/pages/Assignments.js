@@ -122,19 +122,16 @@ class Assignments extends React.Component {
                 </div>
                 <div> 
                     <Modal size="md" centered show={this.state.show }  onHide={() =>this.handleOpenModal()}>
-                      <Modal.Header closeButton><Modal.Title>Edit a class</Modal.Title></Modal.Header>
+                      <Modal.Header closeButton><Modal.Title>Edit an assignment</Modal.Title></Modal.Header>
                           <Modal.Body>
                             <form onSubmit={this.handleSubmit}>
-                              <label>Edit class name:</label><br></br>
+                              <label>Edit assignment name:</label><br></br>
                                 <input type="text" class="modalInput" placeholder="Assignment name" value={this.state.name} onChange={e => this.setState({name: e.target.value})} /><br></br>
-                                <label>Edit class details/description:</label><br></br>
+                                <label>Edit assignment details/description:</label><br></br>
                                 <span class="textarea input" role="textbox" contenteditable="true" onInput={e => this.setState({details: e.currentTarget.innerText})} value={this.state.details} >{this.state.ModalData.details}</span>
                           </form>
                           </Modal.Body>
                           <Modal.Footer>
-                            <a class="af" onClick={() =>this.handleOpenModal()}>
-                              Close
-                            </a>
                             <a class="af" onClick={() =>this.handleEdit(this.state.ModalData.id)} >
                               Save Changes
                             </a>

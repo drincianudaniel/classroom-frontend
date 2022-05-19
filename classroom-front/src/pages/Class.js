@@ -142,9 +142,6 @@ export default class Class extends Component {
                              </form>
                           </Modal.Body>
                           <Modal.Footer>
-                            <a class="af" onClick={() =>this.handleOpenModal()}>
-                              Close
-                            </a>
                             <a class="af" onClick={() =>this.handleSubmit()} >
                               Save Changes
                             </a>

@@ -49,3 +49,22 @@
     height: 100px;
     text-decoration: none;
 }
+
+.NumeStudent{
+    font-size: 30px;
+    font-weight: 500;
+    color: rgb(83, 83, 83);
+}
+
+.GradeStudent{
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(83, 83, 83);
+    display: inline;
+}
+
+.icon6{
+    color: rgb(83, 83, 83);
+    height: 20px;
+    margin-left: 10px;
+}

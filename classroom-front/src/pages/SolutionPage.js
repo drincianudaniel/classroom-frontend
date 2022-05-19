@@ -111,15 +111,17 @@ class SolutionPage extends React.Component{
         .then(res =>{
             const data = res.data
             const solutions = data.map(u =>
-              <div>  
-                  {/* <p> {u.id} </p> */}
-                  <p>{u.user.name} </p>
-                  <p>{u.solution_content}</p>
-                  {u.grade === null && <p>Not marked yet</p>}
-                  {u.grade && <p>{u.grade}/100</p>}
-                  <a class="iconuser" onClick={()=> {this.handleOpenModal(); 
-                                                     this.setState({ModalData: u, grade: u.grade});}}>
-                    <FontAwesomeIcon  icon={faEdit} /> </a>
+              <div>
+                <div>
+                    <p class="NumeStudent">{u.user.name}</p>
+                    {u.grade === null && <p class="GradeStudent">Not graded yet</p>}
+                    {u.grade && <p class="GradeStudent">( {u.grade}/100 )</p>}
+                    <a onClick={()=> {this.handleOpenModal(); 
+                                                        this.setState({ModalData: u, grade: u.grade});}}>
+                    <FontAwesomeIcon class="icon6" icon={faEdit} /> </a>
+                </div>
+                <p>{u.solution_content}</p> 
+                <hr style={{height:"2px"}} />
               </div>  
               
             )
@@ -254,9 +256,6 @@ class SolutionPage extends React.Component{
                           </form>
                           </Modal.Body>
                           <Modal.Footer>
-                            <a class="af"  onClick={() =>this.handleOpenModal()}>
-                              Close
-                            </a>
                             <a class="af" onClick={() =>this.editSolution(this.state.ModalData.id)} >
                               Save Changes
                             </a>

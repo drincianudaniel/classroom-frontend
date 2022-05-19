@@ -112,7 +112,7 @@ class ClassPage extends React.Component{
                         {/* Add user to class*/}
                         <a class="nav-item nav-link round" onClick={() =>this.handleOpenModal("addUserToClass")}><FontAwesomeIcon icon={faPersonCirclePlus} /></a>
                         <Modal size="md" centered show={this.state.show && this.state.activeModal === "addUserToClass"} onHide={() =>this.handleOpenModal()}>
-                        <Modal.Header closeButton><Modal.Title>Add an user to the class</Modal.Title></Modal.Header>
+                        <Modal.Header closeButton><Modal.Title>Add a student to the class</Modal.Title></Modal.Header>
                           <Modal.Body>
                             <form onSubmit={this.handleSubmit}>
                               <label>User email:</label><br/>
@@ -121,9 +121,6 @@ class ClassPage extends React.Component{
                             {this.state.added}
                           </Modal.Body>
                           <Modal.Footer>
-                            <a class="af" onClick={() =>this.handleOpenModal()}>
-                              Close
-                            </a>
                             <a class="af" onClick={() =>this.addUserToClass()} >
                               Add student
                             </a>
@@ -144,9 +141,6 @@ class ClassPage extends React.Component{
                             </form>
                           </Modal.Body>
                           <Modal.Footer>
-                            <a class="af" onClick={() =>this.handleOpenModal()}>
-                              Close
-                            </a>
                             <a class="af" onClick={() =>this.handleSubmit()} >
                               Create
                             </a>
