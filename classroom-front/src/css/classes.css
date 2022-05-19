@@ -87,6 +87,15 @@ img{
     color: black;
     text-decoration: underline;
 }
+.deletecl{
+    text-decoration: none;
+    color: black;
+    margin-right: 10px;
+    float: right;
+}
+.deletecl:hover{
+    color: gray;
+}
 
 @media (max-width:995px){
     .classes{

@@ -88,7 +88,7 @@ class Dashboard extends React.Component{
                     <a class="nav-item nav-link active edit" >Classroom<span class="sr-only">(current)</span></a>
               </div>
                   <div class="test2">
-                      <a class="nav-item nav-link round" onClick={() =>this.handleOpenModal()} ><FontAwesomeIcon icon={faPlus} /></a>
+                      {this.props.user.user_type === "Teacher" && <a class="nav-item nav-link round" onClick={() =>this.handleOpenModal()}  ><FontAwesomeIcon icon={faPlus} /></a>}
                       <Modal size="md" centered show={this.state.show} onHide={() =>this.handleOpenModal()}>
                         <Modal.Header closeButton><Modal.Title>Create a class</Modal.Title></Modal.Header>
                           <Modal.Body>
@@ -119,7 +119,7 @@ class Dashboard extends React.Component{
                   <h1>HELLO, {this.props.user.name}!</h1>
               </div>       
         </div>
-           <Class/> 
+           <Class {...this.props}/> 
         </Sidebar>   
          
     </div>

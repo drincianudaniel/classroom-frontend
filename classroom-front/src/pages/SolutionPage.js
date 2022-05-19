@@ -3,8 +3,9 @@ import axios from "axios";
 import Sidebar from "react-sidebar";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faClipboardList } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faClipboardList, faEdit } from '@fortawesome/free-solid-svg-icons'
 import ClassSidebar from "./ClassSidebar.js";
+import Modal from 'react-bootstrap/Modal';
 import "../css/solution.css"
 
 class SolutionPage extends React.Component{
@@ -18,7 +19,10 @@ class SolutionPage extends React.Component{
           show: false,
           solutions: [],
           solution_content:"",
-          username: ""
+          username: "",
+          grade: "",
+          ModalData: "",
+          grade_student: ""
         };
         this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
         console.log(this.props)
@@ -32,8 +36,11 @@ class SolutionPage extends React.Component{
 
     onSetSidebarOpen(open) {
         this.setState({ sidebarOpen: open });
-      }
-    
+    }
+
+    handleOpenModal() {
+    this.setState({ show: !this.state.show });
+    }
     getAssignmentDetails(){
         axios
         .get(`http://localhost:3000/getassignment/${this.props.match.params.assignment_id}`, { withCredentials: true })
@@ -82,7 +89,22 @@ class SolutionPage extends React.Component{
             console.log("logout error", error);
           });
       }
+    editSolution(id){
+        axios
+          .patch(`http://localhost:3000/editsolutions/${id}`,
+          {
 
+            grade: this.state.grade
+          },
+          { withCredentials: true })
+            .then(res =>  {
+                this.handleOpenModal();
+                this.getAllSolutionData();
+            })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
     getAllSolutionData(){
         axios
         .get(`http://localhost:3000/allsolutions/${this.props.match.params.assignment_id}`, { withCredentials: true })
@@ -93,10 +115,11 @@ class SolutionPage extends React.Component{
                   {/* <p> {u.id} </p> */}
                   <p>{u.user.name} </p>
                   <p>{u.solution_content}</p>
-                  {u.grade === null && 
-                  <div>
-
-                  </div>}
+                  {u.grade === null && <p>Not marked yet</p>}
+                  {u.grade && <p>{u.grade}/100</p>}
+                  <a class="iconuser" onClick={()=> {this.handleOpenModal(); 
+                                                     this.setState({ModalData: u, grade: u.grade});}}>
+                    <FontAwesomeIcon  icon={faEdit} /> </a>
               </div>  
               
             )
@@ -114,6 +137,9 @@ class SolutionPage extends React.Component{
             const solution = data.map(u =>
                 <div>
                     <div>{u.solution_content} </div>
+                       {this.setState({
+                           grade_student: u.grade
+                       })}
                  </div>
                     
             )
@@ -155,10 +181,11 @@ class SolutionPage extends React.Component{
                         <FontAwesomeIcon class="icon5" icon={faClipboardList} />
                     </div>
                     <div class="col-9"> 
-                        <div class="title">
+                        <div class="title_assignment">
                             <p>{this.state.assignment.name}</p>
                         </div>
-
+                        {this.state.grade_student === null && <p>Not marked yet</p>}
+                        {this.state.grade_student && <p>{this.state.grade_student}/100</p>}           
                         <hr style={{height:"2px"}} class="liniuta"/>
                         <div>
                             <p> {this.state.assignment.details} </p>
@@ -197,7 +224,7 @@ class SolutionPage extends React.Component{
                             <FontAwesomeIcon class="icon5" icon={faClipboardList} />
                         </div>
                         <div class="col-9"> 
-                            <div class="title">
+                            <div class="title_assignment">
                                 <p>{this.state.assignment.name}</p>
                             </div>
 
@@ -217,6 +244,25 @@ class SolutionPage extends React.Component{
                     {this.state.solutions.length !== 0 &&
                     <div>
                         <p>{this.state.solutions}</p>
+                        <div> 
+                    <Modal size="md" centered show={this.state.show}  onHide={() =>this.handleOpenModal()}>
+                      <Modal.Header closeButton><Modal.Title>Edit a class</Modal.Title></Modal.Header>
+                          <Modal.Body>
+                            <form onSubmit={this.handleSubmit}>
+                                <label>Grade the assignment:</label><br></br>
+                                <input type="number" min={1} max={100} onChange={e => this.setState({grade: e.target.value})} value={this.state.grade}/>/100
+                          </form>
+                          </Modal.Body>
+                          <Modal.Footer>
+                            <a class="af"  onClick={() =>this.handleOpenModal()}>
+                              Close
+                            </a>
+                            <a class="af" onClick={() =>this.editSolution(this.state.ModalData.id)} >
+                              Save Changes
+                            </a>
+                          </Modal.Footer>
+                       </Modal>
+                     </div>
                     </div>}
                 </div>}
             </div>

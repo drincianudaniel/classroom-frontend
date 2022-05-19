@@ -4,6 +4,7 @@ import { faUser, faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Sidebar from "react-sidebar";
 import { Link } from "react-router-dom";
+import ClassSidebar from "./ClassSidebar.js";
 import "../css/profile.css"
 
 
@@ -74,10 +75,10 @@ class Profile extends React.Component{
         return(
         <div>
             {this.props.loggedInStatus == "LOGGED_IN" && <Sidebar
-              sidebar={ <ul> <li>Larisa</li> <li>Dani</li> <li>Alin</li> </ul>   }
+              sidebar={ <ClassSidebar/> }
               open={this.state.sidebarOpen}
               onSetOpen={this.onSetSidebarOpen}
-              styles={{ sidebar: { background: "white", width: "200px" } }}>  
+              styles={{ sidebar: { background: "white", width: "300px" } }}>  
                 <nav class="navbar navbar-expand-lg navbar-light bg-white">
                     <div class="navbar-nav test">
                         <div class="test2">

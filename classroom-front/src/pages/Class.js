@@ -68,7 +68,7 @@ export default class Class extends Component {
                 console.log(data)
                 const classrooms = data.map(u => 
                       <div class="card" id="cardhov">
-                        <a class="deletecl" onClick={()=> this.deleteClass(u.id)}><FontAwesomeIcon icon={faX}/></a> 
+                        {this.props.user.user_type === "Teacher" && <a class="deletecl" onClick={()=> this.deleteClass(u.id)}><FontAwesomeIcon icon={faX}/></a>} 
                         <Link  to={`/classpage/${u.id}`}>
                             <div class="card-body cbody">
                             <Link class="cardtitledesc" to={`/classpage/${u.id}`}>
@@ -81,9 +81,9 @@ export default class Class extends Component {
                             </Link>
                                
                             <div class="assigclass"> <a class="iconuser"><FontAwesomeIcon  icon={faUsersBetweenLines} /></a>
-                            <a class="iconuser" onClick={()=> {this.handleOpenModal("edit"); 
+                            {this.props.user.user_type === "Teacher" && <a class="iconuser" onClick={()=> {this.handleOpenModal("edit"); 
                                                               this.setState({modalData: u, name: u.name, details: u.details});}}>
-                               <FontAwesomeIcon  icon={faEdit} /> </a>
+                               <FontAwesomeIcon  icon={faEdit} /> </a>}
                            </div>
                       </div>
                     
@@ -114,9 +114,6 @@ export default class Class extends Component {
                           </form>
                           </Modal.Body>
                           <Modal.Footer>
-                            <a class="af" onClick={() =>this.handleOpenModal()}>
-                              Close
-                            </a>
                             <a class="af" onClick={() =>this.handleOpenModal()} >
                               Save Changes
                             </a>
@@ -129,16 +126,13 @@ export default class Class extends Component {
                       <Modal.Header closeButton><Modal.Title>Edit a class</Modal.Title></Modal.Header>
                           <Modal.Body>
                             <form onSubmit={this.handleSubmit}>
-                              <label>Edit class name:</label><br></br>
+                                <label>Edit class name:</label><br></br>
                                 <input type="text" onChange={e => this.setState({name: e.target.value})} value={this.state.name}/><br></br>
                                 <label>Edit class details/description:</label><br></br>
                                 <input type="text" onChange={e => this.setState({details: e.target.value})} value={this.state.details}/>
                           </form>
                           </Modal.Body>
                           <Modal.Footer>
-                            <a class="af"  onClick={() =>this.handleOpenModal()}>
-                              Close
-                            </a>
                             <a class="af" onClick={() =>this.editClass(this.state.modalData.id)} >
                               Save Changes
                             </a>

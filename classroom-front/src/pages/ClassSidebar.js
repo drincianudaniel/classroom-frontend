@@ -30,7 +30,7 @@ export default class ClassSidebar extends Component {
                 console.log(data)
                 const classrooms = data.map(u => 
                       <div class="card cardmini hov" id="card">
-                        <Link  to={`/classpage/${u.id}`}>
+                        <Link to={`/classpage/${u.id}`}>
                             <div class="card-body">
                                 <div class="title"> 
                                     <Link to={`/classpage/${u.id}`}>
