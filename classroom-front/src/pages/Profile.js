@@ -6,7 +6,7 @@ import Sidebar from "react-sidebar";
 import { Link } from "react-router-dom";
 import ClassSidebar from "./ClassSidebar.js";
 import "../css/profile.css"
-
+import Modal from 'react-bootstrap/Modal';
 
 class Profile extends React.Component{
 
@@ -15,7 +15,9 @@ class Profile extends React.Component{
         this.state = {
           sidebarOpen: false,
           email: this.props.user.email,
-          name: this.props.user.name
+          name: this.props.user.name,
+          show: false,
+          password: ""
         };
         this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
@@ -24,10 +26,31 @@ class Profile extends React.Component{
     // componentDidMount(){
     //     this.findStudent()
     // } 
+    handleOpenModal() {
+        this.setState({ show: !this.state.show });
+    }
 
     onSetSidebarOpen(open) {
         this.setState({ sidebarOpen: open });
     }
+
+
+    changePassword(){
+        axios.
+        patch("http://localhost:3000/updatePassword",
+        {
+            password: this.state.password
+        },
+        { withCredentials: true }
+        )
+        .then(res=> {
+            this.handleOpenModal()
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
 
     handleEdit(event){
         axios
@@ -100,6 +123,7 @@ class Profile extends React.Component{
                     <div class="row">
 			            <div class="my-5">
 				            <h3>My Profile</h3>
+                            <a style={{cursor:"pointer"}} onClick={()=>this.handleOpenModal()}>Change password</a>
 			            </div>
                         <form onSubmit={this.handleEdit}>
                             <div class="row mb-5 gx-5">
@@ -125,6 +149,21 @@ class Profile extends React.Component{
                         </form>
                     </div>
                 </div>
+
+                <Modal size="md" centered show={this.state.show} onHide={() =>this.handleOpenModal()}>
+                    <Modal.Header closeButton><Modal.Title>Change password</Modal.Title></Modal.Header>
+                        <Modal.Body>
+                            <form onSubmit={this.handleSubmit}>
+                              <label>Password:</label><br></br>
+                                <input type="password" onChange={e => this.setState({password: e.target.value})} value={this.state.password}/><br></br>
+                             </form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <a class="af" onClick={() =>this.changePassword()} >
+                                Save Changes
+                            </a>
+                    </Modal.Footer>
+                </Modal>
             </Sidebar>}
 
             {this.props.loggedInStatus == "NOT_LOGGED_IN" && <div><Link to={"/"}><p>Please LogIn first</p></Link></div>}
