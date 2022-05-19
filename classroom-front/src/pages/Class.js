@@ -23,6 +23,8 @@ export default class Class extends Component {
           details: ""
         }
        this.handleOpenModal= this.handleOpenModal.bind(this);
+       this.handleChange = this.handleChange.bind(this);
+       this.handleSubmit = this.handleSubmit.bind(this);
     }
     
       componentDidMount(){
@@ -33,7 +35,32 @@ export default class Class extends Component {
         this.setState({activeModal: val})
         this.setState({ show: !this.state.show });
       }
-
+      handleChange(event) {
+        this.setState({
+          [event.target.name]: event.target.value
+        });
+      }
+      handleSubmit(){
+        axios
+        .post("http://localhost:3000/createclass",
+        {
+          classrooms: {
+              name: this.state.class_name,
+              details: this.state.class_details
+          }
+        },
+        { withCredentials: true })
+        .then(response=> {
+          this.handleOpenModal()
+          window.location.reload(true)
+        })
+        .catch(error => {
+          console.log("Couldn`t create class")
+        })
+      }
+      onSetSidebarOpen(open) {
+        this.setState({ sidebarOpen: open });
+      }
     editClass(id){
       axios
         .patch(`http://localhost:3000/updateclassroom/${id}`,
@@ -102,22 +129,27 @@ export default class Class extends Component {
     render(){
         return(
             <div> 
-                {this.state.classrooms.length === 0 && <div class="noclass"> <img src={require('./noclasses.png')}></img> No class could be found... try to create one <button onClick={() =>this.handleOpenModal()}>Create class</button> 
+                {this.state.classrooms.length === 0 && this.props.user.user_type === "Student" && <div class="noclass"> <img src={require('./noclasses.png')}></img> No class could be found... </div>}
+                {this.state.classrooms.length === 0 && this.props.user.user_type === "Teacher" && <div class="noclass"> <img src={require('./noclasses.png')}></img> No class could be found... try to create one <button onClick={() =>this.handleOpenModal()}>Create class</button> 
                 <Modal size="md" centered show={this.state.show} onHide={() =>this.handleOpenModal()}>
                         <Modal.Header closeButton><Modal.Title>Create a class</Modal.Title></Modal.Header>
                           <Modal.Body>
                             <form onSubmit={this.handleSubmit}>
                               <label>Class name:</label><br></br>
-                                <input type="text"/><br></br>
+                                <input type="text" onChange={e => this.setState({class_name: e.target.value})} value={this.state.class_name}/><br></br>
                                 <label>Class details/description:</label><br></br>
-                                <input type="text"/>
-                          </form>
+                                <input type="text" onChange={e => this.setState({class_details: e.target.value})} value={this.state.class_details}/>
+                             </form>
                           </Modal.Body>
                           <Modal.Footer>
-                            <a class="af" onClick={() =>this.handleOpenModal()} >
+                            <a class="af" onClick={() =>this.handleOpenModal()}>
+                              Close
+                            </a>
+                            <a class="af" onClick={() =>this.handleSubmit()} >
                               Save Changes
                             </a>
                           </Modal.Footer>
+                          
                        </Modal></div>}
                 <div class= "classes">
                     {this.state.classrooms}
