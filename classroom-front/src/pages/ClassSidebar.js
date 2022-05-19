@@ -71,7 +71,7 @@ export default class ClassSidebar extends Component {
                 </div>
                       {/* <hr></hr> */}
                       <h4 id="class"> Classes</h4> 
-                {this.state.classrooms.length === 0 && <div class="noclass"> No class could be found... try to create one <button>Create class</button> </div>}
+                {this.state.classrooms.length === 0 && <div class="noclass"> No class could be found...</div>}
                 {this.state.classrooms}
             </div>
         )
